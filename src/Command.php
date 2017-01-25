@@ -360,7 +360,7 @@ abstract class Command {
     protected function consoleArguments()
     {
         return Stream::of($_SERVER['argv'])    // ['script.php', foo', 'lorem ipsum']
-            ->then(F\f('tail'))                // ['foo', 'lorem ipsum']
+            ->then(F\tail())                // ['foo', 'lorem ipsum']
             ->map(function($arg) {
                 return (F\contains(' ', $arg))
                     ? "\"{$arg}\""
@@ -389,8 +389,8 @@ abstract class Command {
      */
     protected function error($message)
     {
-        $this->console->style->addCommand('error', 'white');
-        $this->console->backgroundRed()->error($message);
+        // $this->console->style->addCommand('error', 'white');
+        $this->console->backgroundRed()->white()->out($message);
     }
 
     /**

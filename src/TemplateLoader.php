@@ -101,13 +101,13 @@ class TemplateLoader implements TemplateLoaderInterface {
                     'extension' => $file->extension()
                 ];
             })
-            ->get();
+            ->result();
 
         if (count($files) == 0) {
             throw new TemplateNotFound("Unable to find template with name '{$name}' on '{$this->fs->path()}'");
         }
         if (count($files) > 1) {
-            $names = F\toString(F\map(F\value('name'), $files));
+            $names = F\toString(F\map(F\get('name'), $files));
             throw new TemplateNameConflict("Mutiple templates found for the name '{$name}': {$names}");
         }
         $file = F\head($files);

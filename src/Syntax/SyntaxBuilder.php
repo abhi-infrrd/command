@@ -67,11 +67,11 @@ class SyntaxBuilder {
      */
     protected static function syntaxFromString ($value)
     {
-        $syntax = F\s($value)->then(        // "first name" [#age]
+        $syntax = F\s($value)->then(F\pipe( // "first name" [#age]
             F\chunks('(){}[]""', ' '),      // ["first name", [#age]]
             F\join(','),                    // "first name",[#age]
             F\prepend('{ ,'), F\append('}') // { ,"first name",[#age]}
-        )->get();
+        ))->result();
 
         $ss = S::syntax();
 
